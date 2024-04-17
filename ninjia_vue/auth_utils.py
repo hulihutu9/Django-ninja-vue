@@ -46,6 +46,12 @@ class UserInDB(User):
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
+class GlobalAuth(HttpBearer):
+    def authenticate(self, request, token):
+        if token == "supersecret":
+            return token
+
+
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
